@@ -1,0 +1,10 @@
+﻿Stack 1: LAMP
+* Linux, Apache, Mongo, Python
+
+
+Stack 2: FMAP (Favored)
+* Flask, Mongo, Angular, Python
+* Team is more familiar with python and javascript than php and apache
+
+
+In both stacks, we are able to work on layers of the application separately. With that said, we are selecting Stack 2 because the team has more experience with python and javascript than with PHP and apache.
