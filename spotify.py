@@ -4,7 +4,6 @@ import json
 import requests
 import sys
 import datetime
-from bs4 import BeautifulSoup
 from urllib.parse import urlencode
 
 # Class that handles API calls to the Spotify web API
@@ -43,6 +42,7 @@ class spotifyAPI():
     def get_token_data(self):
         return {"grant_type" : "client_credentials"}
 
+    # Get access token using our client credentials to be able to make search API calls.
     def get_auth(self):
         tokenURL = self.tokenURL
         token_header = self.get_token_header()
@@ -64,6 +64,7 @@ class spotifyAPI():
             self.access_token_expired = expiration_time < time_now
             return True
 
+    # Versatile get method to get a specific resource from spotify, e.g. album name, artist name
     def get_resource(self, resource_type, id, version="v1"):
         endpoint = f"https://api.spotify.com/{version}/{resource_type}/{id}"
         headers = {
@@ -76,12 +77,19 @@ class spotifyAPI():
         else:
             return r.json()
 
+    # Method that utilizes get_resource to get the name of an album with the matching id
     def get_albums(self, id):
         return self.get_resource("albums", id)
 
+    # Method that utilizes get_resource to get the name of an artist with the matching id
     def get_artists(self, id):
         return self.get_resource("artists", id)
 
+    # Search method that returns a search list of tracks
+    # genre: specifies the genre being searched for
+    # search_type: indicates what type the query parameter is searching through, such as track, album, or artists
+    # market_location: the primary market location that tracks will be searched within, written in ISO 3166-1 alpha-2 country code format
+    # limit: the number of items returned in the search
     def searchby_Genre(self, genre, search_type, market_location, limit):
         access_token = self.access_token
         auth_headers = {
@@ -94,14 +102,14 @@ class spotifyAPI():
             "market" : market_location,
             "limit" : str(limit)
         })
+    
         lookup_URL = endpoint + "?" + data
-
         r = requests.get(lookup_URL, headers = auth_headers)
-        # Check if our API call was valid
+
         valid_response = r.status_code in range(200,299)
         if valid_response == False:
-            print("Invalid response")
-            return False
+            print("Invalid API call.")
+            return []
         else:
             lookup_data = r.json()
             listings = lookup_data["tracks"]["items"]
