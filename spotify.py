@@ -63,3 +63,67 @@ class spotifyAPI():
             self.access_token_expiration = expiration_time
             self.access_token_expired = expiration_time < time_now
             return True
+
+    def get_resource(self, resource_type, id, version="v1"):
+        endpoint = f"https://api.spotify.com/{version}/{resource_type}/{id}"
+        headers = {
+            "Authorization" : f"Bearer {self.access_token}"
+        }
+        r = requests.get(endpoint, headers=headers)
+        valid_response = r.status_code in range(200,299)
+        if valid_response == False:
+            return {}
+        else:
+            return r.json()
+
+    def get_albums(self, id):
+        return self.get_resource("albums", id)
+
+    def get_artists(self, id):
+        return self.get_resource("artists", id)
+
+    def searchby_Genre(self, genre, search_type, market_location, limit):
+        access_token = self.access_token
+        auth_headers = {
+            "Authorization" : f"Bearer {access_token}"
+        }
+        endpoint = "https://api.spotify.com/v1/search"
+        data = urlencode({
+            "q" : "genre:" + genre,
+            "type" : search_type,
+            "market" : market_location,
+            "limit" : str(limit)
+        })
+        lookup_URL = endpoint + "?" + data
+
+        r = requests.get(lookup_URL, headers = auth_headers)
+        # Check if our API call was valid
+        valid_response = r.status_code in range(200,299)
+        if valid_response == False:
+            print("Invalid response")
+            return False
+        else:
+            lookup_data = r.json()
+            listings = lookup_data["tracks"]["items"]
+
+            results = []
+
+            for i in range(0, len(listings)):
+                track_title = listings[i]["name"]
+                track_artist = listings[i]["artists"][0]["name"]
+                results.append("\"" + track_title + "\" by " + track_artist)
+
+            """
+            ***Uncomment these two lines to look at the json response returned from the get request.***
+
+            json_pretty = json.dumps(lookup_data, indent=2)
+            print(json_pretty)
+
+            """
+
+            print(results)
+            return results
+
+client = spotifyAPI()   # Initialize a new spotify API object so we can begin making searches
+auth_value = client.get_auth()  # Test check to see that our authorization to make API calls works (Spoiler: It works)
+client.searchby_Genre("pop","track", "US", 5)   # Test check to see that our search call using the API works (SSpoiler: It also works, but could definitely use some optimization)
