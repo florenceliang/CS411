@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+
+    <script type="text/javascript">
+
+
+        function get_weather_by_city() {
+            const city = document.getElementById('search_bar').value
+            get_weather('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=46298d85e7d4b0e1deefe4d6fcb4f839')
+        }
+
+        function get_weather_by_coordinates(){
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        const endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=46298d85e7d4b0e1deefe4d6fcb4f839";
+                        get_weather(endpoint);
+                    }
+                );
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function get_weather(endpoint) {
+            console.log("endpoint " + endpoint)
+            const request = new XMLHttpRequest();
+            request.open("GET", endpoint, true);
+            request.onload = function () {
+                if (request.status == 404) {
+                    alert("An unknown error has occured. Please make sure the city is spelled correctly. ex: newyork -> new york");
+                } else {
+                    const weather = JSON.parse(this.response);
+                    var temp = (parseFloat(weather['main']['temp']) - 273.15) * 9/5 + 32
+                    var feels_like = (parseFloat(weather['main']['feels_like']) - 273.15) * 9/5 + 32
+                    document.getElementById('city_temp').innerHTML = 'The temperature for your city is ' + temp.toFixed(2).toString() + ' degrees Fahrenheit'
+                    document.getElementById('feels_like').innerHTML = 'Feels like: ' + feels_like.toFixed(2).toString() + ' degrees Farenheit'
+                    document.getElementById('wind_speed').innerHTML = 'Winds of ' + weather['wind']['speed'] + 'MPH'
+
+                    }
+                };
+                request.send();
+            }
+        
+        function weather_moods() {
+            var s = document.getElementById("sunny");
+            var r = document.getElementById("raining");
+            var sn = document.getElementById("snowing");
+            var f = document.getElementById("foggy");
+            var c = document.getElementById("cloudy")
+            var s_result = s.options[s.selectedIndex].value;
+            var r_result = r.options[r.selectedIndex].value;
+            var sn_result = sn.options[sn.selectedIndex].value;
+            var f_result = f.options[f.selectedIndex].value;
+            var c_result = c.options[c.selectedIndex].value;
+            document.getElementById("sunnyresult").innerHTML = "When it is sunny, you feel " + s_result + "."
+            document.getElementById("rainingresult").innerHTML = "When it is raining, you feel " + r_result + "."
+            document.getElementById("snowingresult").innerHTML = "When it is snowing, you feel " + sn_result + "."
+            document.getElementById("foggyresult").innerHTML = "When it is foggy, you feel " + f_result + "."
+            document.getElementById("cloudyresult").innerHTML = "When it is cloudy, you feel " + c_result + "."
+        }
+
+
+    </script>
+</head>
+<body>
+    <h1> In Tune with the Weather </h1>
+    <h3> Choose your city for some weather: </h3>
+    <p> Search for your city:</p>
+    <input type="text" placeholder="Search here..." id="search_bar"/>
+    <input type="submit" onclick="get_weather_by_city()" />
+    <button onclick="get_weather_by_coordinates()" > Or use current location </button>
+    <p id="city_temp">  </p>
+    <p id="feels_like">  </p>
+    <p id="wind_speed"> </p>
+    
+    <h3>Associate your moods with the weather: </h3>
+
+    <p>How do you feel when...</p>
+
+    <label for="sunny">it is sunny?</label>
+    <select name="sunny" id="sunny">
+        <option value="happy">Happy</option>
+        <option value="sad">Sad</option>
+        <option value="angry">Angry</option>
+        <option value="annoyed">Annoyed</option>
+        <option value="lazy">Lazy</option>
+        <option value="energetic">Energetic</option>
+    </select>
+    <br><br>
+    
+    <label for="raining">it is raining?</label>
+    <select name="raining" id="raining">
+        <option value="happy">Happy</option>
+        <option value="sad">Sad</option>
+        <option value="angry">Angry</option>
+        <option value="annoyed">Annoyed</option>
+        <option value="lazy">Lazy</option>
+        <option value="energetic">Energetic</option>
+    </select>
+    <br><br>
+    
+    <label for="snowing">it is snowing?</label>
+    <select name="snowing" id="snowing">
+        <option value="happy">Happy</option>
+        <option value="sad">Sad</option>
+        <option value="angry">Angry</option>
+        <option value="annoyed">Annoyed</option>
+        <option value="lazy">Lazy</option>
+        <option value="energetic">Energetic</option>
+    </select>
+    <br><br>
+    
+    <label for="foggy">it is foggy?</label>
+    <select name="foggy" id="foggy">
+        <option value="happy">Happy</option>
+        <option value="sad">Sad</option>
+        <option value="angry">Angry</option>
+        <option value="annoyed">Annoyed</option>
+        <option value="lazy">Lazy</option>
+        <option value="energetic">Energetic</option>
+    </select>
+    <br><br>
+    
+    <label for="cloudy">it is cloudy?</label>
+    <select name="cloudy" id="cloudy">
+        <option value="happy">Happy</option>
+        <option value="sad">Sad</option>
+        <option value="angry">Angry</option>
+        <option value="annoyed">Annoyed</option>
+        <option value="lazy">Lazy</option>
+        <option value="energetic">Energetic</option>
+    </select>
+    <br><br>
+    
+    <button type = "button" onclick = "weather_moods()">Submit</button>
+    
+    <p id = "sunnyresult"> </p>
+    <p id = "rainingresult"> </p>
+    <p id = "snowingresult"> </p>
+    <p id = "foggyresult"> </p>
+    <p id = "cloudyresult"> </p>
+
+</body>
+</html>
