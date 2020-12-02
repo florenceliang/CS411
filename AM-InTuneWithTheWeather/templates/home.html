@@ -1,0 +1,305 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card-wrapper">
+
+    <div class="card">
+        <h1 class="center">Log In</h1>
+        <form name="login_form">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" class="field" required>
+
+            <label for="Password">Password</label>
+            <input type="password" name="password" class="field" required>
+
+            <p class="error error--hidden"></p>
+            <input type="submit" value="Log In" class="btn">
+        </form>
+    </div>
+
+    <div class="card">
+        <h1 class="center">Create an Account</h1>
+        <form name="signup_form">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="field" required>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" class="field" required>
+
+            <label for="Password">Password</label>
+            <input type="password" name="password" class="field" required>
+
+            <p class="error error--hidden"></p>
+            <h3>Associate your moods with the weather: </h3>
+            <p>How do you feel when...</p>
+
+            <label for="sunny">it is sunny?</label>
+            <select name="sunny" id="sunny">
+
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="raining">it is raining?</label>
+            <select name="raining" id="raining">
+
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="snowing">it is snowing?</label>
+            <select name="snowing" id="snowing">
+
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="foggy">it is foggy?</label>
+            <select name="foggy" id="foggy">
+
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="cloudy">it is cloudy?</label>
+            <select name="cloudy" id="cloudy">
+
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+
+            <h3>Associate your mood with a music genre: </h3>
+
+            <p>How does ____ music make you feel?</p>
+
+            <label for="hiphop">Hip Hop</label>
+            <select name="hiphop" id="hiphop">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="pop">Pop</label>
+            <select name="pop" id="pop">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="country">Country</label>
+            <select name="country" id="country">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="rock">Rock</label>
+            <select name="rock" id="rock">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="latin">Latin</label>
+            <select name="latin" id="latin">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="r&b">R&B</label>
+            <select name="r&b" id="r&b">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="indie">Indie</label>
+            <select name="indie" id="indie">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="party">Party</label>
+            <select name="party" id="party">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="classical">Classical</label>
+            <select name="classical" id="classical">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="jazz">Jazz</label>
+            <select name="jazz" id="jazz">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="folk&acoustic">Folk & Acoustic</label>
+            <select name="folk&acoustic" id="folk&acoustic">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="soul">Soul</label>
+            <select name="soul" id="soul">
+                
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <label for="metal">Metal</label>
+            <select name="metal" id="metal">
+                <option value="happy">Happy</option>
+                <option value="sad">Sad</option>
+                <option value="angry">Angry</option>
+                <option value="calm">Calm</option>
+                <option value="excited">Excited</option>
+                <option value="scared">Scared</option>
+                <option value="lonely">Lonely</option>
+                <option value="confident">Confident</option>
+                <option value="lovestruck">Lovestruck</option>
+            </select>
+            <br><br>
+
+            <input type="submit" value="Sign Up" class="btn">
+        </form>
+    </div>
+
+</div>
+{% endblock %}
