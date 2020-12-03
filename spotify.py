@@ -87,7 +87,6 @@ class spotifyAPI():
 
     # Search method that returns a search list of tracks
     # genre: specifies the genre being searched for
-    # search_type: indicates what type the query parameter is searching through, such as track, album, or artists
     # market_location: the primary market location that tracks will be searched within, written in ISO 3166-1 alpha-2 country code format
     # limit: the number of items returned in the search
     def songSearch_Genre(self, genre, market_location, limit):
@@ -131,6 +130,10 @@ class spotifyAPI():
 
             return results
 
+    # Search method that returns a list of playlists matching a specified genre
+    # genre: specifies the genre that should be found within the playlist title or description
+    # market_location: the primary market location that tracks will be searched within, written in ISO 3166-1 alpha-2 country code format
+    # limit: the number of items returned in the search
     def playlistSearch_Genre(self, genre, market_location, limit):
         access_token = self.access_token
         auth_headers = {
@@ -174,6 +177,10 @@ class spotifyAPI():
             return results
 
     # TODO: Return only Spotify-made playlists (not public playlists created by other users).
+    # Search method that returns a list of playlists matching a list of keywords
+    # keywords: specifies keywords that should be found within the playlist title or description
+    # market_location: the primary market location that tracks will be searched within, written in ISO 3166-1 alpha-2 country code format
+    # limit: the number of items returned in the search
     def playlistSearch_Keywords(self, keywords, market_location, limit):
         access_token = self.access_token
         auth_headers = {
@@ -225,13 +232,15 @@ class spotifyAPI():
         for item in results:
             print(item)
 
-client = spotifyAPI()   # Initialize a new spotify API object so we can begin making searches
+client = spotifyAPI()           # Initialize a new spotify API object so we can begin making searches
 auth_value = client.get_auth()  # Test check to see that our authorization to make API calls works
 
-""" Test calls and display """
-sunny_songs = client.songSearch_Genre("rap", "US", 10)   # Test check to see that our search call using the API works
-client.pretty_display(sunny_songs)
+""" Test calls and display: Uncomment any pair to search and display their respective function calls. """
+# Search for tracks by genre
+#sunny_songs = client.songSearch_Genre("rap", "US", 10)   # Test check to see that our search call using the API works
+#client.pretty_display(sunny_songs)
 
+# Search for playlists by a genre
 #rainy_playlist = client.playlistSearch_Keywords("lofi", "US", 2)
 #client.pretty_display(rainy_playlist)
 
