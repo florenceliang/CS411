@@ -90,7 +90,7 @@ class spotifyAPI():
     # search_type: indicates what type the query parameter is searching through, such as track, album, or artists
     # market_location: the primary market location that tracks will be searched within, written in ISO 3166-1 alpha-2 country code format
     # limit: the number of items returned in the search
-    def searchby_Genre(self, genre, search_type, market_location, limit):
+    def songSearch_Genre(self, genre, market_location, limit):
         access_token = self.access_token
         auth_headers = {
             "Authorization" : f"Bearer {access_token}"
@@ -98,15 +98,15 @@ class spotifyAPI():
         endpoint = "https://api.spotify.com/v1/search"
         data = urlencode({
             "q" : "genre:" + genre,
-            "type" : search_type,
+            "type" : "track",
             "market" : market_location,
             "limit" : str(limit)
         })
     
         lookup_URL = endpoint + "?" + data
         r = requests.get(lookup_URL, headers = auth_headers)
-
         valid_response = r.status_code in range(200,299)
+
         if valid_response == False:
             print("Invalid API call.")
             return []
@@ -129,9 +129,111 @@ class spotifyAPI():
 
             """
 
-            print(results)
             return results
 
+    def playlistSearch_Genre(self, genre, market_location, limit):
+        access_token = self.access_token
+        auth_headers = {
+            "Authorization" : f"Bearer {access_token}"
+        }
+        endpoint = "https://api.spotify.com/v1/search"
+        data = urlencode({
+            "q" : genre,
+            "type" : "playlist",
+            "market" : market_location,
+            "owner" : "Spotify",
+            "limit" : str(limit)
+        })
+
+        lookup_URL = endpoint + "?" + data
+        r = requests.get(lookup_URL, headers = auth_headers)
+        valid_response = r.status_code in range(200,299)
+
+        if valid_response == False:
+            print("Invalid API call.")
+            return []
+        else:
+            lookup_data = r.json()
+            playlists = lookup_data["playlists"]["items"]
+
+            results = []
+            for i in range(0, len(playlists)):
+                playlist_title = playlists[i]["name"]
+                playlist_descript = playlists[i]["description"]
+                playlist_link = playlists[i]["external_urls"]["spotify"]
+                results.append(playlist_title + " - " + playlist_descript + "\n Link to this playlist: " + playlist_link)
+
+            """
+            ***Uncomment these two lines to look at the json response returned from the get request.***
+
+            json_pretty = json.dumps(lookup_data, indent=2)
+            print(json_pretty)
+
+            """
+
+            return results
+
+    # TODO: Return only Spotify-made playlists (not public playlists created by other users).
+    def playlistSearch_Keywords(self, keywords, market_location, limit):
+        access_token = self.access_token
+        auth_headers = {
+            "Authorization" : f"Bearer {access_token}"
+        }
+        endpoint = "https://api.spotify.com/v1/search"
+
+        query = keywords[0]
+        for kw in keywords[1:]:
+            query = query + "+" + kw
+
+        data = urlencode({
+            "q" : query,
+            "type" : "playlist",
+            "market" : market_location,
+            "owner" : "Spotify",
+            "limit" : str(limit)
+        })
+
+        lookup_URL = endpoint + "?" + data
+        r = requests.get(lookup_URL, headers = auth_headers)
+        valid_response = r.status_code in range(200,299)
+
+        if valid_response == False:
+            print("Invalid API call.")
+            return []
+        else:
+            lookup_data = r.json()
+            playlists = lookup_data["playlists"]["items"]
+
+            results = []
+            for i in range(0, len(playlists)):
+                playlist_title = playlists[i]["name"]
+                playlist_descript = playlists[i]["description"]
+                playlist_link = playlists[i]["external_urls"]["spotify"]
+                results.append(playlist_title + " - " + playlist_descript + "\n Link to this playlist: " + playlist_link)
+
+            """
+            ***Uncomment these two lines to look at the json response returned from the get request.***
+
+            json_pretty = json.dumps(lookup_data, indent=2)
+            print(json_pretty)
+
+            """
+
+            return results
+        
+    def pretty_display(self, results):
+        for item in results:
+            print(item)
+
 client = spotifyAPI()   # Initialize a new spotify API object so we can begin making searches
-auth_value = client.get_auth()  # Test check to see that our authorization to make API calls works (Spoiler: It works)
-client.searchby_Genre("pop","track", "US", 5)   # Test check to see that our search call using the API works (SSpoiler: It also works, but could definitely use some optimization)
+auth_value = client.get_auth()  # Test check to see that our authorization to make API calls works
+
+""" Test calls and display """
+sunny_songs = client.songSearch_Genre("rap", "US", 10)   # Test check to see that our search call using the API works
+client.pretty_display(sunny_songs)
+
+#rainy_playlist = client.playlistSearch_Keywords("lofi", "US", 2)
+#client.pretty_display(rainy_playlist)
+
+#snowy_playlist_advanced = client.playlistSearch_Keywords(["lofi", "hip", "hop"], "US", 2)
+#client.pretty_display(snowy_playlist_advanced)
