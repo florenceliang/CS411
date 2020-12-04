@@ -118,15 +118,17 @@ class spotifyAPI():
             for i in range(0, len(listings)):
                 track_title = listings[i]["name"]
                 track_artist = listings[i]["artists"][0]["name"]
-                results.append("\"" + track_title + "\" by " + track_artist)
+                track_ID = listings[i]["id"]
+
+                results.append([track_title, track_artist, track_ID])
 
             """
             ***Uncomment these two lines to look at the json response returned from the get request.***
-
+            """
             json_pretty = json.dumps(lookup_data, indent=2)
             print(json_pretty)
 
-            """
+            
 
             return results
 
@@ -164,7 +166,10 @@ class spotifyAPI():
                 playlist_title = playlists[i]["name"]
                 playlist_descript = playlists[i]["description"]
                 playlist_link = playlists[i]["external_urls"]["spotify"]
-                results.append(playlist_title + " - " + playlist_descript + "\n Link to this playlist: " + playlist_link)
+                playlist_ID = playlists[i]["id"]
+
+                results.append([playlist_title, playlist_descript, playlist_ID])
+
 
             """
             ***Uncomment these two lines to look at the json response returned from the get request.***
@@ -216,15 +221,17 @@ class spotifyAPI():
                 playlist_title = playlists[i]["name"]
                 playlist_descript = playlists[i]["description"]
                 playlist_link = playlists[i]["external_urls"]["spotify"]
-                results.append(playlist_title + " - " + playlist_descript + "\n Link to this playlist: " + playlist_link)
+                playlist_ID = playlists[i]["id"]
+
+                results.append([playlist_title, playlist_descript, playlist_ID])
 
             """
             ***Uncomment these two lines to look at the json response returned from the get request.***
-
+            """
             json_pretty = json.dumps(lookup_data, indent=2)
             print(json_pretty)
 
-            """
+
 
             return results
         
@@ -237,7 +244,7 @@ auth_value = client.get_auth()  # Test check to see that our authorization to ma
 
 """ Test calls and display: Uncomment any pair to search and display their respective function calls. """
 # Search for tracks by genre
-#sunny_songs = client.songSearch_Genre("rap", "US", 10)   # Test check to see that our search call using the API works
+#sunny_songs = client.songSearch_Genre("rap", "US", 3)   # Test check to see that our search call using the API works
 #client.pretty_display(sunny_songs)
 
 # Search for playlists by a genre
