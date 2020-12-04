@@ -30,3 +30,6 @@ def home():
 def dashboard():
     return render_template('dashboard.html')
 
+@app.route('/player/')
+def player():
+    return render_template('player.html')

@@ -21,3 +21,7 @@ def makeMoodChanges():
 @app.route('/user/makegenrechanges', methods=['POST'])
 def makeGenreChanges():
     return User().makeGenreChanges()
+
+#@app.route('/player')
+#def player():
+#    return User().player()

@@ -37,9 +37,10 @@ class User:
             "jazz": request.form.get('jazz'),
             "folk&acoustic": request.form.get('folk&acoustic'),
             "soul": request.form.get('soul'),
-            "metal": request.form.get('metal')
+            "metal": request.form.get('metal'),
+            "playlist": "5Zp1iiAdhAiF8t5IXRdEfV",
         }
-        # Change of values for preferences may be neccesary
+        # Need to add weather and location
 
         # Encrypt the password
         user['password'] = pbkdf2_sha256.encrypt(user['password'])
@@ -102,3 +103,13 @@ class User:
             return jsonify({"error":"Successfully updated"}), 0
         return jsonify({"error":"Could not make genre preference changes"}), 398
     
+    # def player(self): joeseph when you incorproate the spotify(will need to import it as well into this file) user "session['user'][(insert here the mood or value you are looking for)]
+        #set play as a string var equal to whatever the playlist code is then uncomment below 
+        #
+        # if db.users.update(
+        # {'_id': session['user']['_id']}, {'$set': { 
+        #     "playlist": play
+        #     }}):
+#        return jsonify({"error":"Successfully updated"}), 0
+ #      return jsonify({"error":"Could not create playlist"}), 398
+        # uncomment: session['user'] = db.users.find_one({"_id":session['user']['_id']})
