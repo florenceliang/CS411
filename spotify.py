@@ -124,10 +124,10 @@ class spotifyAPI():
 
             """
             ***Uncomment these two lines to look at the json response returned from the get request.***
-            """
+        
             json_pretty = json.dumps(lookup_data, indent=2)
             print(json_pretty)
-
+            """
             
 
             return results
