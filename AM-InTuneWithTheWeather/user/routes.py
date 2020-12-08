@@ -14,6 +14,10 @@ def signout():
 def login():
     return User().login()
 
+@app.route("/user/weather", methods = ['POST'])
+def getWeather():
+    return User().getWeatherData()
+
 @app.route('/user/makemoodchanges', methods=['POST'])
 def makeMoodChanges():
     return User().makeMoodChanges()
@@ -21,6 +25,8 @@ def makeMoodChanges():
 @app.route('/user/makegenrechanges', methods=['POST'])
 def makeGenreChanges():
     return User().makeGenreChanges()
+
+
 
 #@app.route('/player')
 #def player():

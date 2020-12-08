@@ -1,27 +1,9 @@
 
-        function get_weather_by_city() {
-            const city = document.getElementById('search_bar').value
-            get_weather('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=46298d85e7d4b0e1deefe4d6fcb4f839')
-        }
-
-        // function to get weather by using current location
-        function get_weather_by_coordinates(){
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
-                        const endpoint = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=46298d85e7d4b0e1deefe4d6fcb4f839";
-                        get_weather(endpoint);
-                    }
-                );
-            } else {
-                console.log("Geolocation is not supported by this browser.");
-            }
-        }
 
         // display weather of determined location
-        function get_weather(endpoint) {
+        function get_weather() {
+            const city = document.getElementById('search_bar').value
+            const endpoint = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=46298d85e7d4b0e1deefe4d6fcb4f839'
             console.log("endpoint " + endpoint)
             const request = new XMLHttpRequest();
             request.open("GET", endpoint, true);
@@ -88,13 +70,16 @@
                     }
                     document.getElementById('condition').innerHTML = "Condition is " + outcome
 
-                    var data = {
-                       outcome
-                    }
-                    $.post( "/postmethod", {
-                    canvas_data: JSON.stringify(data)
-                    },
+        
+                    $.post( "/user/weather", {
+                    canvas_data: JSON.stringify([{
+                        outcome,
+                        city
+                     }])
+                })
                     }
             };
+            
             request.send();
         }
+    
