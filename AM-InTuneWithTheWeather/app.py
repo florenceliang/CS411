@@ -1,6 +1,10 @@
-from flask import Flask, render_template,redirect,session
+from __future__ import print_function
+from flask import Flask, render_template,redirect,session, jsonify, request, url_for
 from functools import wraps
 import pymongo
+import uuid
+import sys
+
 app = Flask(__name__)
 app.secret_key = "fkjerhshdjjkefjksdjhkfshjkdsjhksfdjjsadjhka"
 
@@ -20,6 +24,20 @@ def login_required(f):
 
 # Routes
 from user import routes
+@app.route("/postmethod", methods = ['POST'])
+def post_javascript_data():
+    jsdata = request.form['canvas_data']
+
+    #jsonify(jsdata)
+    #print(jsdata[12: -2], file = sys.stderr)
+    #return jsonify(jsdata)
+    return jsdata
+
+def create_csv(text):
+    unique_id = str(uuid.uuid4())
+    with open('images/'+unique_id+'.csv', 'a') as file:
+        file.write(text[1:-1]+"\n")
+    return unique_id
 
 @app.route('/')
 def home():

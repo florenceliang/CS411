@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script src="{{ url_for('static', filename='js/locationweather.js')}}"></script>
 <div class="card-wrapper">
     <div class="card">
         <h1 class="center">InTuneWithTheWeather</h1>
@@ -26,11 +27,14 @@
             <p> Search for your city:</p>
             <!--Add functionality and keep option to load old saved location-->
             <input type="text" placeholder="Search here..." id="search_bar" />
-            <input type="submit" value=Submit class="btn">
-            <input type="submit" value="Or use current location" class="btn">
-            <p id="city_temp"> </p>
+            <!input type="submit" value=Submit class="btn">
+            <input type="submit" onclick="get_weather_by_city()" />
+            <!input type="submit" value="Or use current location" class="btn">
+            <!button onclick="get_weather_by_coordinates()" > Or use current location <!/button>
+            <p id="city_temp">  </p>
             <p id="feels_like"> </p>
             <p id="wind_speed"> </p>
+            <p id="condition">  </p>
         </div>
 
         <div class="card">
