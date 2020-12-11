@@ -1,6 +1,4 @@
 set FLASK_APP=app.py 
 set FLASK_ENV=development 
 set FLASK_DEBUG=1
-set SPOTIFY_CLIENT_ID=dae67b4df5b84cf2afd9e2cc6e5357f8
-set SPOTIFY_CLIENT_SECRET=ab8bdcc080314e2a805c72c453242741
 python -m flask run
