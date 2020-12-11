@@ -1,6 +1,9 @@
 from flask import Flask, render_template, redirect, session
 from functools import wraps
 import pymongo
+import uuid
+import sys
+
 app = Flask(__name__)
 app.secret_key = "fkjerhshdjjkefjksdjhkfshjkdsjhksfdjjsadjhka"
 
@@ -28,6 +31,7 @@ from user.models import User
 from user.player import Player
 
 thePlayer = Player()
+
 
 @app.route('/')
 def home():

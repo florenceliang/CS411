@@ -38,6 +38,8 @@ class User:
             "soul": request.form.get('soul'),
             "metal": request.form.get('metal'),
             "playlist": "5Zp1iiAdhAiF8t5IXRdEfV",
+            "city": "Boston",
+            "weather": "sunny"
         }
         # Need to add weather and location
 
@@ -80,6 +82,23 @@ class User:
                 {"_id": session['user']['_id']})
             return jsonify({"error": "Successfully updated"}), 0
         return jsonify({"error": "Could not make mood changes"}), 399
+
+    def getWeatherData(self):
+        jsdata = request.form['canvas_data']
+        bs = eval(jsdata[1:-1])
+        weather = bs.get('outcome')
+        city = bs.get('city')
+        print(city)
+        print(weather)
+        if db.users.update(
+            {'_id': session['user']['_id']}, {'$set': { 
+                "city": city,
+                "weather": weather
+            }}):
+            session['user'] = db.users.find_one({"_id":session['user']['_id']})
+            return jsonify({"error":"Successfully updated"}), 0
+        return jsonify({"error":"Could not make mood changes"}), 399
+
 
     def makeGenreChanges(self):
         if db.users.update(
