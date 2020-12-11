@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<script src="{{ url_for('static', filename='js/locationweather.js')}}"></script>
 <div class="card-wrapper">
     <div class="card">
         <h1 class="center">InTuneWithTheWeather</h1>
@@ -22,19 +23,22 @@
             </p>
         </div>
         <div class="card">
-            <h3> Choose your city for some weather: </h3>
-            <p> Search for your city:</p>
+            <h2>Your current location is <strong>{{session['user']['city']}}</strong> </h4>
+            <h2>The current weather condition is <strong>{{session['user']['weather']}}</strong></h2>
+            <h3> Location: </h3>
+            <p> Change your city:</p>
             <!--Add functionality and keep option to load old saved location-->
             <input type="text" placeholder="Search here..." id="search_bar" />
-            <input type="submit" value=Submit class="btn">
-            <input type="submit" value="Or use current location" class="btn">
-            <p id="city_temp"> </p>
+            <!input type="submit" value=Submit class="btn">
+            <input type="submit" onclick="get_weather()" />
+            <p id="city_temp">  </p>
             <p id="feels_like"> </p>
             <p id="wind_speed"> </p>
+            <p id="condition">  </p>
         </div>
 
         <div class="card">
-            <h3>Associate your moods with the weather: </h3>
+            <h3>Weather Preferences: </h3>
             <p>How do you feel when...</p>
             <form name="mood_form">
 
@@ -128,7 +132,7 @@
             </form>
         </div>
         <div class="card">
-            <h3>Associate your mood with a music genre: </h3>
+            <h3>Genre Preferences: </h3>
 
             <p>How does ____ music make you feel?</p>
             <form name="genre_form">
