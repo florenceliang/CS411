@@ -14,7 +14,7 @@ class Player:
         )  # Test check to see that our authorization to make API calls works
 
     def findPlaylist(self):
-        currentWeather = "snowing"  # replace with call to db for current weather
+        currentWeather = session["user"]["weather"]
         desiredMood = session["user"][currentWeather]
         genres = [
             "hiphop",
