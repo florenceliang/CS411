@@ -239,10 +239,11 @@ class spotifyAPI():
         for item in results:
             print(item)
 
-client = spotifyAPI()           # Initialize a new spotify API object so we can begin making searches
-auth_value = client.get_auth()  # Test check to see that our authorization to make API calls works
-
 """ Test calls and display: Uncomment any pair to search and display their respective function calls. """
+# UNCOMMENT THESE TWO LINES TO RUN THE TEST CALLS
+#client = spotifyAPI()           # Initialize a new spotify API object so we can begin making searches
+#auth_value = client.get_auth()  # Test check to see that our authorization to make API calls works
+
 # Search for tracks by genre
 #sunny_songs = client.songSearch_Genre("rap", "US", 3)   # Test check to see that our search call using the API works
 #client.pretty_display(sunny_songs)
