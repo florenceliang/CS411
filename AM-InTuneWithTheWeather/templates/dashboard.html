@@ -26,9 +26,8 @@
             <h2>Your current location is <strong>{{session['user']['city']}}</strong> </h4>
             <h2>The current weather condition is <strong>{{session['user']['weather']}}</strong></h2>
             <h3> Location: </h3>
-            <p> Change your city:</p>
-            <!--Add functionality and keep option to load old saved location-->
-            <input type="text" placeholder="Search here..." id="search_bar" />
+            <p> Update your city or weather:</p>
+            <input type="text" placeholder="Type your city here..." id="search_bar" />
             <!input type="submit" value=Submit class="btn">
             <input type="submit" onclick="get_weather()" />
             <p id="city_temp">  </p>
