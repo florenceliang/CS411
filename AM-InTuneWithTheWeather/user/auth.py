@@ -22,6 +22,7 @@ client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
 @app.route('/user/loginGoogle', methods = ['POST'])
 def loginGoogle():
+    print("flag hit")
     # Google login URL that should be reached
     auth_endpoint = "https://accounts.google.com/o/oauth2/v2/auth"
     redirect_uri = request.base_url + "/callback"
