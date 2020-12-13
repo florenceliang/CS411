@@ -5,7 +5,7 @@ import uuid
 
 class User:
     def start_session(self, user):
-        del user['password']
+        # del user['password']
         session['logged_in'] = True
         session['user'] = user 
         return jsonify(user), 200
@@ -51,6 +51,50 @@ class User:
             return jsonify({"error": "Email address already in use"}), 400
 
         if db.users.insert_one(user):
+            return self.start_session(user)
+
+        return jsonify({"error": "Signup failed"}), 400
+
+    # Create an account for the user using their Google account
+    # Default their weather- and music- to-mood associations to "happy"
+    # User will have to change their preferences manually when they get to the dashboard
+    def signup_Google(self, user_id, user_name, user_email):
+  
+        user = {
+            "_id": user_id,
+            "name": user_name,
+            "email": user_email,
+            "sunny": "happy",
+            "raining": "happy",
+            "snowing": "happy",
+            "foggy": "happy",
+            "cloudy": "happy",
+            "hiphop": "happy",
+            "pop": "happy",
+            "country": "happy",
+            "rock": "happy",
+            "latin": "happy",
+            "r&b": "happy",
+            "indie": "happy",
+            "party": "happy",
+            "classical": "happy",
+            "jazz": "happy",
+            "folk&acoustic": "happy",
+            "soul": "happy",
+            "metal": "happy",
+            "playlist": "5Zp1iiAdhAiF8t5IXRdEfV",
+            "city": "Boston",
+            "weather": "sunny"
+        }
+        # Need to add weather and location
+        
+        # Check for existing user with same email
+        if db.users.find_one({"email": user_email}):
+            temp = db.users.find_one({"email": user_email})
+            return self.start_session(temp) 
+
+        if db.users.insert_one(user):
+
             return self.start_session(user)
 
         return jsonify({"error": "Signup failed"}), 400
