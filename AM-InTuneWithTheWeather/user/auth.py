@@ -81,13 +81,13 @@ def callback():
     # The user authenticated with Google, authorized your
     # app, and now you've verified their email through Google!
     if userinfo_response.json().get("email_verified"):
+        #print("Flag hit")
         unique_id = userinfo_response.json()["sub"]
         users_email = userinfo_response.json()["email"]
         picture = userinfo_response.json()["picture"]
         users_name = userinfo_response.json()["given_name"]
-
-        user = User().signup_Google(unique_id, users_email, users_name)
-        return redirect('/dashboard/')
+        
+        return redirect('/user/signupGoogle')
     else:
         return "User email not available or not verified by Google.", 400
 
