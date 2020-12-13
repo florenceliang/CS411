@@ -7,15 +7,9 @@ from user.models import User
 def signup():
     return User().signup()
 
-@app.route('/user/signupGoogle', methods=['POST'])
-def signupGoogle(id, users_email, users_name):
-    print("Flag hit")
-    return User().signup_Google(id, users_email, users_name)
-
 @app.route('/user/signout')
 def signout():
     return User().signout()
-
 
 @app.route('/user/login', methods=['POST'])
 def login():
