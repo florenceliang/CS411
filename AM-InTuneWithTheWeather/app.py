@@ -1,11 +1,14 @@
 from flask import Flask, render_template, redirect, session
 from functools import wraps
 import pymongo
+import uuid
+import sys
+
 app = Flask(__name__)
 app.secret_key = "fkjerhshdjjkefjksdjhkfshjkdsjhksfdjjsadjhka"
 
 # Database
-# client = pymongo.MongoClient('localhost', 27017)
+# local: client = pymongo.MongoClient('localhost', 27017)
 client = pymongo.MongoClient("mongodb+srv://411projectteam:411projecteam@cluster0.94v8n.mongodb.net/user_login_system?retryWrites=true&w=majority")
 db = client.user_login_system
 
@@ -28,6 +31,7 @@ from user.models import User
 from user.player import Player
 
 thePlayer = Player()
+
 
 @app.route('/')
 def home():

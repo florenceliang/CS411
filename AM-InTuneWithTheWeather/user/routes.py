@@ -17,6 +17,9 @@ def signout():
 def login():
     return User().login()
 
+@app.route("/user/weather", methods = ['POST'])
+def getWeather():
+    return User().getWeatherData()
 
 @app.route('/user/makemoodchanges', methods=['POST'])
 def makeMoodChanges():

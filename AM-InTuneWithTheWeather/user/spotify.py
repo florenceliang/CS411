@@ -120,13 +120,6 @@ class spotifyAPI:
 
                 results.append([track_title, track_artist, track_ID])
 
-            """
-            ***Uncomment these two lines to look at the json response returned from the get request.***
-        
-            json_pretty = json.dumps(lookup_data, indent=2)
-            print(json_pretty)
-            """
-
             return results
 
     # Search method that returns a list of playlists matching a specified genre
@@ -167,21 +160,8 @@ class spotifyAPI:
 
                 results.append([playlist_title, playlist_descript, playlist_ID])
 
-            """
-            ***Uncomment these two lines to look at the json response returned from the get request.***
-
-            json_pretty = json.dumps(lookup_data, indent=2)
-            print(json_pretty)
-
-            """
-
             return results
 
-    # TODO: Return only Spotify-made playlists (not public playlists created by other users).
-    # Search method that returns a list of playlists matching a list of keywords
-    # keywords: specifies keywords that should be found within the playlist title or description
-    # market_location: the primary market location that tracks will be searched within, written in ISO 3166-1 alpha-2 country code format
-    # limit: the number of items returned in the search
     def playlistSearch_Keywords(self, keywords, market_location, limit):
         access_token = self.access_token
         auth_headers = {"Authorization": f"Bearer {access_token}"}
@@ -221,39 +201,9 @@ class spotifyAPI:
 
                 results.append([playlist_title, playlist_descript, playlist_ID])
 
-            """
-            ***Uncomment these two lines to look at the json response returned from the get request.***
-            
-            json_pretty = json.dumps(lookup_data, indent=2)
-            print(json_pretty)
-            """
-
             return results
 
     def pretty_display(self, results):
         print("results:")
         for item in results:
             print(item)
-
-
-# client = (
-#     spotifyAPI()
-# )  # Initialize a new spotify API object so we can begin making searches
-# auth_value = (
-#     client.get_auth()
-# )  # Test check to see that our authorization to make API calls works
-
-# """ Test calls and display: Uncomment any pair to search and display their respective function calls. """
-# # Search for tracks by genre
-# # sunny_songs = client.songSearch_Genre("rap", "US", 3)   # Test check to see that our search call using the API works
-# # client.pretty_display(sunny_songs)
-
-# # Search for playlists by a genre
-# rainy_playlist = client.playlistSearch_Keywords(" sad", "US", 10)
-# client.pretty_display(rainy_playlist)
-
-# snowy_playlist_advanced = client.playlistSearch_Keywords(["lofi", "hip", "hop"], "US", 2)
-# client.pretty_display(snowy_playlist_advanced)
-
-# snowy_playlist_advanced = client.playlistSearch_Keywords(['hiphop', 'pop', 'country', 'rock', 'latin', 'r&b', 'indie', 'party', 'classical', 'jazz', 'folk&acoustic', 'soul', 'metal'], "US", 2)
-# client.pretty_display(snowy_playlist_advanced)
