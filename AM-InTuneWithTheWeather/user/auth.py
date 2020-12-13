@@ -72,4 +72,4 @@ def callback():
         user_email = user_info_resp["email"]
         user_name = user_info_resp["given_name"]
 
-        user = 0 # Replace 0; create a new user using the user_id, user_email, user_name
+        user = User().signup_Google(user_id, user_name, user_email)
