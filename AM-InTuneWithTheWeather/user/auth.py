@@ -54,5 +54,9 @@ def callback():
     headers = token_request[1]
     body = token_request[2]
 
+    # token json response containing
     token_resp = requests.post(token_url, headers = headers, data = body, auth = (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)).json()
 
+    # Parse the json response
+    tokens = client.parse_request_body_response(token_resp)
+    user_info_endpoint = "https://openidconnect.googleapis.com/v1/userinfo"
