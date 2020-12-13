@@ -22,57 +22,7 @@
     <div class = "card-wrapper">
         <div class = "card">
             <h1 class="center">Google Oauth</h1>
-<<<<<<< HEAD
-            <form name="google_form">
-            <input type="submit" value="Google Log In" class="btn">
-            </form>
-                  <meta name="google-signin-client_id" content="640034408089-4e7jkdkg9qfvukkts9urdhl3nl613t7u.apps.googleusercontent.com">
-                      <div id="my-signin2"></div>
-                      <script>
-                        function onSuccess(googleUser) {
-                          console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-                        }
-                        function onFailure(error) {
-                          console.log(error);
-                        }
-                        function renderButton() {
-                          gapi.signin2.render('my-signin2', {
-                            'scope': 'profile email',
-                            'width': 240,
-                            'height': 50,
-                            'longtitle': true,
-                            'theme': 'dark',
-                            'onsuccess': onSuccess,
-                            'onfailure': onFailure
-                          });
-                        }
-                      </script>
-                    
-                      <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-                  <div id="my-signin2"></div>
-                  <script>
-                    function onSuccess(googleUser) {
-                      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-                    }
-                    function onFailure(error) {
-                      console.log(error);
-                    }
-                    function renderButton() {
-                      gapi.signin2.render('my-signin2', {
-                        'scope': 'profile email',
-                        'width': 240,
-                        'height': 50,
-                        'longtitle': true,
-                        'theme': 'dark',
-                        'onsuccess': onSuccess,
-                        'onfailure': onFailure
-                      });
-                    }
-                  </script>
-                  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-=======
             <a class="button" href="/user/loginGoogle">Google Login</a>
->>>>>>> 092f5d8e82531c685678074a0dd4cf4422e123b3
         </div>
     </div>
     
