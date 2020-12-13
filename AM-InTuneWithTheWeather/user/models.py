@@ -5,7 +5,7 @@ import uuid
 
 class User:
     def start_session(self, user):
-        del user['password']
+        # del user['password']
         session['logged_in'] = True
         session['user'] = user 
         return jsonify(user), 200
@@ -59,7 +59,7 @@ class User:
     # Default their weather- and music- to-mood associations to "happy"
     # User will have to change their preferences manually when they get to the dashboard
     def signup_Google(self, user_id, user_name, user_email):
-
+  
         user = {
             "_id": user_id,
             "name": user_name,
@@ -90,9 +90,11 @@ class User:
 
         # Check for existing user with same email
         if db.users.find_one({"email": user['email']}):
-            return jsonify({"error": "Email address already in use"}), 400
+            temp = db.users.find_one({"email": user['email']})
+            return self.start_session(temp) 
 
         if db.users.insert_one(user):
+
             return self.start_session(user)
 
         return jsonify({"error": "Signup failed"}), 400

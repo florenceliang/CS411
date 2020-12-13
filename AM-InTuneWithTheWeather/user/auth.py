@@ -15,76 +15,76 @@ from user.models import User
 
 # blueprint = Blueprint('auth', __name__, url_base='/auth')
 
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
+GOOGLE_DISCOVERY_URL = (
+    "https://accounts.google.com/.well-known/openid-configuration"
+)
 
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
-@app.route('/user/loginGoogle', methods = ['POST'])
-def loginGoogle():
-    print("flag hit")
-    # Google login URL that should be reached
-    auth_endpoint = "https://accounts.google.com/o/oauth2/v2/auth"
-    redirect_uri = request.base_url + "/callback"
+def get_google_provider_cfg():
+    return requests.get(GOOGLE_DISCOVERY_URL).json()
 
-    # Set the scopes that our app will get from Google if the user
-    # consents on login page
+@app.route("/user/loginGoogle")
+def oauthlogin():
+    # Find out what URL to hit for Google login
+    google_provider_cfg = get_google_provider_cfg()
+    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+
+    # Use library to construct the request for Google login and provide
+    # scopes that let you retrieve user's profile from Google
     request_uri = client.prepare_request_uri(
-        auth_endpoint,
-        redirect_uri = redirect_uri,
-        scope = ["email", "profile", "openid"]
+        authorization_endpoint,
+        redirect_uri=request.base_url + "/callback",
+        scope=["openid", "email", "profile"],
     )
+    #print("HERE", request_uri)
     return redirect(request_uri)
 
-@app.route('/user/loginGoogle/callback', methods = ['POST', 'GET'])
+@app.route("/user/loginGoogle/callback")
 def callback():
-    auth_code = request.args.get("code")
+    # Get authorization code Google sent back to you
+    code = request.args.get("code")
 
-    # Token URL to be given permission from Google to obtain and use
-    # a user's google login information.
-    token_endpoint = "https://oauth2.googleapis.com/token"
+    # Find out what URL to hit to get tokens that allow you to ask for
+    # things on behalf of a user
+    google_provider_cfg = get_google_provider_cfg()
+    token_endpoint = google_provider_cfg["token_endpoint"]
 
-    token_request = client.prepare_token_request(
+    # Prepare and send a request to get tokens! Yay tokens!
+    token_url, headers, body = client.prepare_token_request(
         token_endpoint,
-        authorization_response = request.url,
-        redirect_url = request.base_url,
-        code = auth_code
+        authorization_response=request.url,
+        redirect_url=request.base_url,
+        code=code
+    )
+    token_response = requests.post(
+        token_url,
+        headers=headers,
+        data=body,
+        auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
     )
 
-    token_url = token_request[0]
-    headers = token_request[1]
-    body = token_request[2]
+    # Parse the tokens!
+    client.parse_request_body_response(json.dumps(token_response.json()))
 
-    # token json response containing
-    token_resp = requests.post(token_url, headers = headers, data = body, auth = (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)).json()
+    # Now that you have tokens (yay) let's find and hit the URL
+    # from Google that gives you the user's profile information,
+    # including their Google profile image and email
+    userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+    uri, headers, body = client.add_token(userinfo_endpoint)
+    userinfo_response = requests.get(uri, headers=headers, data=body)
 
-<<<<<<< HEAD
     # You want to make sure their email is verified.
     # The user authenticated with Google, authorized your
     # app, and now you've verified their email through Google!
     if userinfo_response.json().get("email_verified"):
-        #print("Flag hit")
         unique_id = userinfo_response.json()["sub"]
         users_email = userinfo_response.json()["email"]
-        picture = userinfo_response.json()["picture"]
         users_name = userinfo_response.json()["given_name"]
-        
-        return redirect('/user/signupGoogle')
-=======
-    # Parse the json response
-    token = client.parse_request_body_response(token_resp)
-    user_info_endpoint = "https://openidconnect.googleapis.com/v1/userinfo"
-
-    uri, headers, data = token.add_token(user_info_endpoint)
-
-    user_info_resp = requests.get(uri, headers = headers, data = data).json()
-
-    if user_info_resp["email_verified"] == False:
-        return "Google account is either unavailable or permission was not granted.", 400
->>>>>>> parent of 84c56f3... Integrated oauth protocol, but still needs to log in auth'd user
+        User().signup_Google(unique_id, users_name, users_email)
+        return redirect('/dashboard/')
     else:
-        user_id = user_info_resp["sub"]
-        user_email = user_info_resp["email"]
-        user_name = user_info_resp["given_name"]
-
-        user = User().signup_Google(user_id, user_name, user_email)
+        return "User email not available or not verified by Google.", 400
