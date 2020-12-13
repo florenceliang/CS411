@@ -1,0 +1,4 @@
+﻿User Story 6 - Spotify Search and Playlist Creation
+
+
+As a logged in user, I want to be able to access a playlist based on the current weather as well as my weather and mood associations, as well as my mood and music associations. If I have not yet distinguished my weather and mood associations within the app, a playlist will still be generated based on the current weather, default weather and mood associations, and my mood and music associations. If I have not distinguished my mood and music association preferences within the app, a default playlist generated from the default set of associations will be provided, e.g. rainy and cloudy weather with a sad playlist. If I have input both my mood and music association preferences I want to be able to play a playlist that is generated based on these preferences as well as the weather in my current location.

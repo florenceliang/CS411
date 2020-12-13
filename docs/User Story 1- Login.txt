@@ -1,0 +1,4 @@
+﻿User Story 1- Login
+
+
+As a user, I want to be able to log in order to have access to my personalized content and my user profile. I will use Google to log in. If I have a preexisting account and I am able to log in, I will see that I have access to the content (I will see my profile home) and I will be prompted to either reiterate User Stories 2-6 or resume the previous instance of my profile (eg. resume listening to a playlist I previously created in a prior login session). If I have a preexisting account but I am not able to log in, I will receive an error message and a notification to retry my login information or reset my login information through a previously verified email address. If I do not have a preexisting account (there is no preexisting username/password match available), I will be prompted to create a new account; here I will enter a unique username and an associated password (stored in a separate database).
