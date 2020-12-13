@@ -9,8 +9,8 @@ app.secret_key = "fkjerhshdjjkefjksdjhkfshjkdsjhksfdjjsadjhka"
 
 # Database
 # local: client = pymongo.MongoClient('localhost', 27017)
-client = pymongo.MongoClient("mongodb+srv://411projectteam:411projecteam@cluster0.94v8n.mongodb.net/user_login_system?retryWrites=true&w=majority")
-db = client.user_login_system
+client_db = pymongo.MongoClient("mongodb+srv://411projectteam:411projecteam@cluster0.94v8n.mongodb.net/user_login_system?retryWrites=true&w=majority")
+db = client_db.user_login_system
 
 # Decorators
 
