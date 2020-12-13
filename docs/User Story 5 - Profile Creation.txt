@@ -1,4 +1,0 @@
-﻿User Story 5 - Profile Creation
-
-
-As a logged in user, I want to be able to save my preferences and last location, so I will not have to repeat inputting them every time I log in. I want the ability to save my preferences, so I will be able to access the service faster. If I am able to save my preferences and location, I will be able to see these preferences and location in my profile and be able to change them as I feel. If I am unable to save my preferences, I will receive an error notification, but will still be able to set my preferences manually (Story 3 + 4). If weather data is unavailable for my location, I will be prompted to set a new location or set weather information (Story 2).
