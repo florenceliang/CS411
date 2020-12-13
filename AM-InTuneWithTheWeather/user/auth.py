@@ -58,5 +58,18 @@ def callback():
     token_resp = requests.post(token_url, headers = headers, data = body, auth = (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)).json()
 
     # Parse the json response
-    tokens = client.parse_request_body_response(token_resp)
+    token = client.parse_request_body_response(token_resp)
     user_info_endpoint = "https://openidconnect.googleapis.com/v1/userinfo"
+
+    uri, headers, data = token.add_token(user_info_endpoint)
+
+    user_info_resp = requests.get(uri, headers = headers, data = data).json()
+
+    if user_info_resp["email_verified"] == False:
+        return "Google account is either unavailable or permission was not granted.", 400
+    else:
+        user_id = user_info_resp["sub"]
+        user_email = user_info_resp["email"]
+        user_name = user_info_resp["given_name"]
+
+        user = 0 # Replace 0; create a new user using the user_id, user_email, user_name
