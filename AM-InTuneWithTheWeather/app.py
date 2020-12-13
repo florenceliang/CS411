@@ -26,7 +26,7 @@ def login_required(f):
 
 
 # Routes
-from user import routes
+from user import routes, auth
 from user.models import User
 from user.player import Player
 
