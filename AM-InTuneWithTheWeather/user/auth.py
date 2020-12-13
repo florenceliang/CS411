@@ -12,5 +12,5 @@ from oauthlib.oauth2 import WebApplicationClient
 import user
 from user.models import User
 
-blueprint = Blueprint('auth', __name__, url_base='/auth')
+#blueprint = Blueprint('auth', __name__, url_base='/auth')
 
