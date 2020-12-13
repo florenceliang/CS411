@@ -54,4 +54,5 @@ def callback():
     headers = token_request[1]
     body = token_request[2]
 
-    token_resp = requests.post(token_url, headers=headers, data=body)
+    token_resp = requests.post(token_url, headers = headers, data = body, auth = (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)).json()
+
