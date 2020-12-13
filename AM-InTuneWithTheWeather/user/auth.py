@@ -33,3 +33,27 @@ def loginGoogle():
         scope = ["email", "profile", "openid"]
     )
     return redirect(request_uri)
+
+@app.route('/user/loginGoogle/callback', methods = ['POST', 'GET'])
+def callback():
+    auth_code = request.args.get("code")
+
+    # Token URL to be given permission from Google to obtain and use
+    # a user's google login information.
+    token_endpoint = "https://oauth2.googleapis.com/token"
+
+    token_request = client.prepare_token_request(
+        token_endpoint,
+        authorization_response = request.url,
+        redirect_url = request.base_url,
+        code = auth_code
+    )
+
+    token_url = token_request[0]
+    headers = token_request[1]
+    body = token_request[2]
+
+    # token json response
+    token_resp = requests.post(token_url, headers = headers, data = body, auth = (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)).json()
+
+    #### idk what to do from this point on ####
