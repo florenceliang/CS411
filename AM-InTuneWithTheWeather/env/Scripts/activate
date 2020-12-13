@@ -37,11 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-<<<<<<< HEAD
 VIRTUAL_ENV="C:\Users\Jeffrey Li\Documents\CS411\AM-InTuneWithTheWeather\env"
-=======
-VIRTUAL_ENV="C:\Users\krist\CS411\AM-InTuneWithTheWeather\env"
->>>>>>> f0f011be448f7fd8376cab9d6d1b841a3a88d104
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
