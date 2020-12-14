@@ -14,6 +14,8 @@ Jeffrey Li (jeffrey1@bu.edu)
 
 Florence Liang (fjliang@bu.edu)
 
+Adit Mehta (aam2000@bu.edu)
+
 #### Project Overview:
 Our project suggests a Spotify playlist to the user based on current weather of a predetermined location, how the user associates weather with mood, and how the user associates mood with music.
   
