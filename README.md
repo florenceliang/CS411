@@ -22,4 +22,4 @@ Our project suggests a Spotify playlist to the user based on current weather of 
 In our repository, there are three designated folders:
 * The "docs" folder contains our project proposal, our stack as well as our user stories (6 in total).
 * The "prototype" folder contains an HTML prototype of our project, as well as supplemental pictures and files.
-* The "AM-InTuneWithTheWeather" folder contains our actual project
+* The "AM-InTuneWithTheWeather" folder contains the code for our project
